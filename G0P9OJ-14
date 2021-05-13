@@ -34,7 +34,7 @@ int main()
     fread(buffer, filelen, 1, finptr);
     printf("Tartalom beolvasva input fájlból!\n");
 
-    int asdf;
+    int shmid;
     key_t key = SHMKEY;
     int size = filelen*sizeof(char);
     int shmflag;
@@ -46,22 +46,22 @@ int main()
     } *segm;
 
     shmflag =0;
-    if((asdf=shmget(key, size, shmflag)) < 0)
+    if((shmid=shmget(key, size, shmflag)) < 0)
     {
         shmflag = 00666 | IPC_CREAT;
-        if((asdf=shmget(key, size, shmflag)) < 0)
+        if((shmid=shmget(key, size, shmflag)) < 0)
         {
             perror("Nem sikerült létrehozni az osztott memóriaszegmenst!\n");
             exit(-1);
         }
         else
         {
-            printf("Az osztott memóriaszegmens létrejött! (ID: %d)\n", asdf);
+            printf("Az osztott memóriaszegmens létrejött! (ID: %d)\n", shmid);
         }
     }
     else
     {
-        printf("A megadott KEY-jel már létezik osztott memóriaszegmens! %d\n", asdf);
+        printf("A megadott KEY-jel már létezik osztott memóriaszegmens! %d\n", shmid);
         exit(-1);
     }
 
@@ -90,7 +90,7 @@ int main()
         printf("CHILD: Gyermekprocessz megnyílott! (PID: %d)\n", pid);
 
         shmflag =   00666 | SHM_RND;
-        segm = (struct file_contents *)shmat(asdf, NULL, shmflag);
+        segm = (struct file_contents *)shmat(shmid, NULL, shmflag);
         if (segm == (void *)-1 )
         {
             perror("CHILD: A memóriaszegmensre csatlakozás sikertelen!\n");
@@ -120,8 +120,8 @@ int main()
     pid = wait(NULL);
     printf("A %d PID-ű gyermekprocessz megszűnt!\n", pid);
 
-    shmctl(asdf, IPC_RMID, NULL);
-    printf("Az %d ID-jű memóriaszegmens törölve!\n", asdf);
+    shmctl(shmid, IPC_RMID, NULL);
+    printf("Az %d ID-jű memóriaszegmens törölve!\n", shmid);
 
     printf("A fájlok bezárásra kerülnek, majd a program leáll!\n");
 
