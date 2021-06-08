@@ -1,7 +1,27 @@
 Feladat leírása:
-    14. Írjon C nyelvű programokat, ami hozzon létre egy osztott memória szegmenst a felhasználótól olvasson be szöveget, 
-    és ezt írja be az osztott memória területere es küldjön signalt a fogadó félnek, hogy kész az üzenet (SIGUSR1) (segítségképpen a másik program pid-je fixen beletehető
+    14. Írjon C nyelvű programokat, ami hozzon létre egy osztott memória szegmenst a felhasználótól, olvasson be szöveget, 
+    és ezt írja be az osztott memória területere és küldjön signalt a fogadó félnek, hogy kész az üzenet (SIGUSR1) (segítségképpen a másik program pid-je fixen beletehető
     a programba) a másik program pedig olvasson ki az osztott mem szegmensből, de csak egy adott signal hatására (SIGUSR1), végül szűntesse meg az shm szegmenst.
     
 A feladat elkészítésének lépései:
-  1. 
+   1. file deklarálása
+   2. érték átadás
+   3. deklarálás
+   
+   
+   
+   
+   
+1. file deklarálása
+    -myfile.txt létrehozása
+    -ha a megnyitás sikertelen, akkor kilép a programból
+    
+2. érték átadás:
+    -pointer beállítás (fseek)
+    -a file méretének megadása (ftell)
+    -a file visszaállítása az eredeti pozícióba (rewid)
+    -a 'buffer' megkapja a lefoglalt 'filelen' méretét
+    -adatokat olvas a megadott a 'buffer'-be
+    
+3. deklarálás
+    -SHMKEY létrehozása
