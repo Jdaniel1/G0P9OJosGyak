@@ -7,8 +7,8 @@ A feladat elkészítésének lépései:
    1. file deklarálása
    2. érték átadás
    3. deklarálás
-   
-   
+   4. memóriaszegmens létrehozása
+   5. leállítás
    
    
    
@@ -25,3 +25,14 @@ A feladat elkészítésének lépései:
     
 3. deklarálás
     -SHMKEY létrehozása
+    -méret megadása
+    
+4. memóriaszegmens létrehozása
+    -az osztott memóriaszegmens létrehozása
+    -csatlakozás az osztott memóriaszegmenshez
+    -tartalom kiíratása a szegmensről
+    
+5. leállítás
+    -gyermekprocessz leállítása
+    -memóriaszegmens törlése
+    -program leállítása
